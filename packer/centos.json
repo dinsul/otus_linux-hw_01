@@ -1,10 +1,10 @@
+{
 "builders": [
     {
       "boot_command": [
         "<tab> inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
-
       "disk_size": "10240",
       "export_opts": [
         "--manifest",
@@ -18,8 +18,9 @@
 
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "0f433162c0ba7b845b06a9cb3c64768b88da1ddf9fb921b65de2a055fb7453f7",
-      "iso_url": "http://mirror.linux-ia64.org/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-20220603-boot.iso",
+      "iso_checksum_type": "SHA256",
+      "iso_checksum": "ef54eee544f5b2ea9f6acf4a0980f59104a96ad1c7a7fdc64042537cf29801ac",
+      "iso_url": "http://mirror.corbina.net/pub/Linux/centos/8-stream/isos/x86_64/CentOS-Stream-8-x86_64-latest-boot.iso",
       "name": "{{user `image_name`}}",
       "output_directory": "builds",
       "shutdown_command": "sudo -S /sbin/halt -h -p",
@@ -52,7 +53,7 @@
   "post-processors": [
     {
       "compression_level": "7",
-      "output": "centos-{{user `artifact_version`}}-kernel-5-x86_64-Minimal.box",
+      "output": "centos-{{user `artifact_version`}}-kernel-6-x86_64-Minimal.box",
       "type": "vagrant"
     }
   ],
@@ -63,8 +64,6 @@
       "expect_disconnect": true,
       "override": {
         "{{user `image_name`}}": {
-
-
           "scripts": [
             "scripts/stage-1-kernel-update.sh",
             "scripts/stage-2-clean.sh"
@@ -78,11 +77,9 @@
     }
   ],
 
-
   "variables": {
-    "artifact_description": "CentOS Stream 8 with kernel 5.x",
+    "artifact_description": "CentOS Stream 8 with kernel 6.x",
     "artifact_version": "8",
     "image_name": "centos-8"
   }
 }
-
